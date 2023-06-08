@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Http\Requests\RegisterUserRequest;
 use DB;
 
 use App\Models\Users\Subjects;
@@ -57,13 +58,13 @@ class RegisterController extends Controller
         return view('auth.register.register', compact('subjects'));
     }
 
-    public function registerPost(Request $request)
+    public function registerPost(RegisterUserRequest $request)
     {
         DB::beginTransaction();
         try{
-            $old_year = $request->old_year;
-            $old_month = $request->old_month;
-            $old_day = $request->old_day;
+            $old_year = $request->input('old_year');
+            $old_month = $request->input('old_month');
+            $old_day = $request->input('old_day');
             $data = $old_year . '-' . $old_month . '-' . $old_day;
             $birth_day = date('Y-m-d', strtotime($data));
             $subjects = $request->subject;
