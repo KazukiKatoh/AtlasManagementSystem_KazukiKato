@@ -21,6 +21,17 @@ class RegisterUserRequest extends FormRequest
      *
      * @return array
      */
+    public function getValidatorInstance()
+    {
+        $old_year = $this->input('old_year');
+        $old_month = $this->input('old_month');
+        $old_day = $this->input('old_day');
+        $birth_day = $old_year . '-' . $old_month . '-' . $old_day;
+        $this->merge([
+            'birth_day' => $birth_day,
+        ]);
+        return parent::getValidatorInstance();
+    }
     public function rules()
     {
         return [
@@ -28,7 +39,7 @@ class RegisterUserRequest extends FormRequest
             'under_name' => 'required|string|max:10',
             'over_name_kana' => 'required|string|regex:/\A[ァ-ヴー]+\z/u|max:30',
             'under_name_kana' => 'required|string|regex:/\A[ァ-ヴー]+\z/u|max:30',
-            'mail_address' => 'required|email:strict,dns|unique:users,mail_address|max:100',
+            'mail_address' => 'required|email|unique:users,mail_address|max:100',
             'sex' => 'required|in:1,2,3',
             'birth_day' => 'required|date|after_or_equal:2000-01-01|before_or_equal:'.date('Y-m-d'),
             'role' => 'required|in:1,2,3,4',
