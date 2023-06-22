@@ -62,12 +62,12 @@ class PostsController extends Controller
             'post_title' => 'required|string|max:100',
             'post_body' => 'required|string|max:5000',
         ],[
-            'post_title.required' => 'タイトルは必ず入力してください。',
-            'post_title.string' => 'タイトルは文字列で入力してください。',
-            'post_title.max' => 'タイトルは100文字以内で入力してください。',
-            'post_body.required' => '投稿内容は必ず入力してください。',
-            'post_body.string' => '投稿内容は文字列で入力してください。',
-            'post_body.max' => '投稿内容は5000文字以内で入力してください。',
+            'post_title.required' => '※タイトルは必ず入力してください。',
+            'post_title.string' => '※タイトルは文字列で入力してください。',
+            'post_title.max' => '※タイトルは100文字以内で入力してください。',
+            'post_body.required' => '※投稿内容は必ず入力してください。',
+            'post_body.string' => '※投稿内容は文字列で入力してください。',
+            'post_body.max' => '※投稿内容は5000文字以内で入力してください。',
         ]);
         Post::where('id', $request->post_id)->update([
             'post_title' => $request->post_title,

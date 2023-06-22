@@ -19,7 +19,7 @@
           @if ($errors->any())
           <ul>
             @foreach ($errors->all() as $error)
-            <li><span class="error_message">{{ $error }}</span></li>
+            <li><span class="error_message" style="font-family: ＭＳ Ｐゴシック, MS PGothic, sans-serif;">{{ $error }}</span></li>
             @endforeach
           </ul>
           @endif
