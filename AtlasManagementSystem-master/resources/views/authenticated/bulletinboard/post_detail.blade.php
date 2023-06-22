@@ -7,7 +7,7 @@
         <div class="detail_inner_head">
           <div>
           </div>
-          @if ($post->user_id === auth()->user()->id)
+          @if (Auth::check() && Auth::user()->id == auth()->user()->id)
           <div>
             <span class="edit-modal-open" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</span>
             <a href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('削除してよろしいですか？')">削除</a>
@@ -16,6 +16,13 @@
         </div>
 
         <div class="contributor d-flex">
+          @if ($errors->any())
+          <ul>
+            @foreach ($errors->all() as $error)
+            <li><span class="error_message">{{ $error }}</span></li>
+            @endforeach
+          </ul>
+          @endif
           <p>
             <span>{{ $post->user->over_name }}</span>
             <span>{{ $post->user->under_name }}</span>

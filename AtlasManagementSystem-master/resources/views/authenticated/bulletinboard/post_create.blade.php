@@ -4,12 +4,15 @@
 <div class="post_create_container d-flex">
   <div class="post_create_area border w-50 m-5 p-5">
     <div class="">
+      @if($errors->first('post_category_id'))
+      <span class="error_message">{{ $errors->first('post_category_id') }}</span>
+      @endif
       <p class="mb-0">カテゴリー</p>
       <select class="w-100" form="postCreate" name="post_category_id">
-        <option value="" disabled selected>教科</option>
-        <option value="english">英語</option>
-        <option value="japanese">国語</option>
-        <option value="math">数学</option>
+        <option disabled selected>教科</option>
+        <option value="3">英語</option>
+        <option value="1">国語</option>
+        <option value="2">数学</option>
         @foreach($main_categories as $main_category)
         <optgroup label="{{ $main_category->main_category }}"></optgroup>
         <!-- サブカテゴリー表示 -->
