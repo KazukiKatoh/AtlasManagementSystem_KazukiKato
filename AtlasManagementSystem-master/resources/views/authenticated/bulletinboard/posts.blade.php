@@ -15,9 +15,21 @@
           </div>
           <div>
             @if(Auth::user()->is_Like($post->id))
-            <p class="m-0"><i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}"></span></p>
+            <p class="m-0">
+              <i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i>
+              <span class="like_counts{{ $post->id }}">{{ $post->like->count() }}</span>
+            </p>
             @else
-            <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}"></span></p>
+            <p class="m-0">
+              <i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i>
+              <span class="like_counts{{ $post->id }}">
+                @if($post->like->count() > 0)
+                {{ $post->like->count() }}
+                @else
+                0
+                @endif
+              </span>
+            </p>
             @endif
           </div>
         </div>
@@ -34,6 +46,13 @@
       </div>
       <input type="submit" name="like_posts" class="category_btn" value="いいねした投稿" form="postSearchRequest">
       <input type="submit" name="my_posts" class="category_btn" value="自分の投稿" form="postSearchRequest">
+      <div>
+        <ul>教科
+          <li><input type="submit" name="english" class="category_btn" value="英語" form="postSearchRequest"></li>
+          <li><input type="submit" name="japanese" class="category_btn" value="国語" form="postSearchRequest"></li>
+          <li><input type="submit" name="math" class="category_btn" value="数学" form="postSearchRequest"></li>
+        </ul>
+      </div>
       <ul>
         @foreach($categories as $category)
         <li class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}<span></li>
