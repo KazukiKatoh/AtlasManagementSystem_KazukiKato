@@ -27,6 +27,7 @@ class PostFormRequest extends FormRequest
             'post_category_id' => 'required|in:1,2,3',
             'post_title' => 'required|string|max:100',
             'post_body' => 'required|string|max:5000',
+
         ];
     }
 public function messages()

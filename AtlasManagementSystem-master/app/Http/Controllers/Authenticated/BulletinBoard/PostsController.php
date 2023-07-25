@@ -81,7 +81,34 @@ class PostsController extends Controller
         return redirect()->route('post.show');
     }
     public function mainCategoryCreate(Request $request){
+        $data = $request->validate([
+            'main_category_name' => 'required|string|max:100|unique:main_categories,main_category',
+        ],[
+            'main_category_name.required' => 'メインカテゴリーは必ず入力してください。',
+            'main_category_name.string' => 'メインカテゴリーは文字列で入力してください。',
+            'main_category_name.max' => 'メインカテゴリーは100文字以内で入力してください。',
+            'main_category_name.unique' => '指定したサブカテゴリーは既に存在します',
+        ]);
         MainCategory::create(['main_category' => $request->main_category_name]);
+        return redirect()->route('post.input');
+    }
+
+    public function subCategoryCreate(Request $request){
+        $data = $request->validate([
+            'main_category_id' => 'required|exists_in_main_categories',
+            'sub_category_name' => 'required|string|max:100|unique:sub_categories,sub_category',
+        ],[
+            'main_category_id.required' => 'メインカテゴリーが選択されていません。',
+            'main_category_id.exists' => '選択したメインカテゴリーは存在しません。',
+            'sub_category_name.required' => 'サブカテゴリーは必ず入力してください。',
+            'sub_category_name.string' => 'サブカテゴリーは文字列で入力してください。',
+            'sub_category_name.max' => 'サブカテゴリーは100文字以内で入力してください。',
+            'sub_category_name.unique' => '指定したサブカテゴリーは既に存在します。',
+        ]);
+        SubCategory::create([
+            'main_category_id' => $request->main_category_id,
+            'sub_category' => $request->sub_category_name
+        ]);
         return redirect()->route('post.input');
     }
 
@@ -134,8 +161,8 @@ class PostsController extends Controller
         $like = new Like;
 
         $like->where('like_user_id', $user_id)
-             ->where('like_post_id', $post_id)
-             ->delete();
+        ->where('like_post_id', $post_id)
+        ->delete();
 
         return response()->json();
     }
