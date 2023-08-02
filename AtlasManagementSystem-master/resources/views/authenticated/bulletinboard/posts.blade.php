@@ -46,16 +46,18 @@
       </div>
       <input type="submit" name="like_posts" class="category_btn" value="いいねした投稿" form="postSearchRequest">
       <input type="submit" name="my_posts" class="category_btn" value="自分の投稿" form="postSearchRequest">
-      <div>
-        <ul>教科
-          <li><input type="submit" name="english" class="category_btn" value="英語" form="postSearchRequest"></li>
-          <li><input type="submit" name="japanese" class="category_btn" value="国語" form="postSearchRequest"></li>
-          <li><input type="submit" name="math" class="category_btn" value="数学" form="postSearchRequest"></li>
-        </ul>
-      </div>
       <ul>
         @foreach($categories as $category)
-        <li class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}<span></li>
+        <li class="main_categories" category_id="{{ $category->id }}">
+          <span>{{ $category->main_category }}</span>
+          <ul class="sub_categories" style="display: none;">
+          @foreach($category->subCategories as $subCategory)
+          <li>
+            <input type="submit" name="category_word" class="category_btn sub_category_btn" value="{{ $subCategory->sub_category }}" form="postSearchRequest">
+          </li>
+          @endforeach
+          </ul>
+        </li>
         @endforeach
       </ul>
     </div>

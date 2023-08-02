@@ -11,6 +11,9 @@ use App\Models\Posts\PostComment;
 use App\Models\Posts\Like;
 use App\Models\Users\User;
 use App\Http\Requests\BulletinBoard\PostFormRequest;
+use App\Http\Requests\PostEditRequest;
+use App\Http\Requests\MainCategoryRequest;
+use App\Http\Requests\SubCategoryRequest;
 use Auth;
 
 class PostsController extends Controller
@@ -26,7 +29,9 @@ class PostsController extends Controller
             ->orWhere('post', 'like', '%'.$request->keyword.'%')->get();
         }else if($request->category_word){
             $sub_category = $request->category_word;
-            $posts = Post::with('user', 'postComments')->get();
+            $posts = Post::whereHas('subCategories', function ($q) use ($sub_category){
+                $q->where('sub_categories.sub_category', $sub_category);
+            })->get();
         }else if($request->like_posts){
             $likes = Auth::user()->likePostId()->get('like_post_id');
             $posts = Post::with('user', 'postComments')
@@ -49,26 +54,18 @@ class PostsController extends Controller
     }
 
     public function postCreate(PostFormRequest $request){
+        $subcategory = $request->post_category_id;
         $post = Post::create([
             'user_id' => Auth::id(),
             'post_title' => $request->post_title,
             'post' => $request->post_body
         ]);
+        $post = Post::findOrFail($post->id);
+            $post->subCategories()->attach($subcategory);
         return redirect()->route('post.show');
     }
 
-    public function postEdit(Request $request){
-        $data = $request->validate([
-            'post_title' => 'required|string|max:100',
-            'post_body' => 'required|string|max:5000',
-        ],[
-            'post_title.required' => 'タイトルは必ず入力してください。',
-            'post_title.string' => 'タイトルは文字列で入力してください。',
-            'post_title.max' => 'タイトルは100文字以内で入力してください。',
-            'post_body.required' => '投稿内容は必ず入力してください。',
-            'post_body.string' => '投稿内容は文字列で入力してください。',
-            'post_body.max' => '投稿内容は5000文字以内で入力してください。',
-        ]);
+    public function postEdit(PostEditRequest $request){
         Post::where('id', $request->post_id)->update([
             'post_title' => $request->post_title,
             'post' => $request->post_body,
@@ -80,31 +77,13 @@ class PostsController extends Controller
         Post::findOrFail($id)->delete();
         return redirect()->route('post.show');
     }
-    public function mainCategoryCreate(Request $request){
-        $data = $request->validate([
-            'main_category_name' => 'required|string|max:100|unique:main_categories,main_category',
-        ],[
-            'main_category_name.required' => 'メインカテゴリーは必ず入力してください。',
-            'main_category_name.string' => 'メインカテゴリーは文字列で入力してください。',
-            'main_category_name.max' => 'メインカテゴリーは100文字以内で入力してください。',
-            'main_category_name.unique' => '指定したサブカテゴリーは既に存在します',
-        ]);
+
+    public function mainCategoryCreate(MainCategoryRequest $request){
         MainCategory::create(['main_category' => $request->main_category_name]);
         return redirect()->route('post.input');
     }
 
-    public function subCategoryCreate(Request $request){
-        $data = $request->validate([
-            'main_category_id' => 'required|exists_in_main_categories',
-            'sub_category_name' => 'required|string|max:100|unique:sub_categories,sub_category',
-        ],[
-            'main_category_id.required' => 'メインカテゴリーが選択されていません。',
-            'main_category_id.exists' => '選択したメインカテゴリーは存在しません。',
-            'sub_category_name.required' => 'サブカテゴリーは必ず入力してください。',
-            'sub_category_name.string' => 'サブカテゴリーは文字列で入力してください。',
-            'sub_category_name.max' => 'サブカテゴリーは100文字以内で入力してください。',
-            'sub_category_name.unique' => '指定したサブカテゴリーは既に存在します。',
-        ]);
+    public function subCategoryCreate(SubCategoryRequest $request){
         SubCategory::create([
             'main_category_id' => $request->main_category_id,
             'sub_category' => $request->sub_category_name

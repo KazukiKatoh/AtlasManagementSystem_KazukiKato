@@ -7,12 +7,17 @@
       @if($errors->first('post_category_id'))
       <span class="error_message">{{ $errors->first('post_category_id') }}</span>
       @endif
+
+
       <p class="mb-0">カテゴリー</p>
       <select class="w-100" form="postCreate" name="post_category_id">
-        <option disabled selected>教科</option>
-        <option value="1">国語</option>
-        <option value="2">数学</option>
-        <option value="3">英語</option>
+        @foreach($main_categories as $main_category)
+        <optgroup label="{{ $main_category->main_category }}">
+        @foreach($main_category->subCategories as $subCategory)
+        <option value="{{ $subCategory->id }}">{{ $subCategory->sub_category }}</option>
+        @endforeach
+        </optgroup>
+        @endforeach
       </select>
     </div>
     <div class="mt-3">
@@ -37,6 +42,10 @@
   @can('admin')
   <div class="w-25 ml-auto mr-auto">
     <div class="category_area mt-5 p-5">
+      @if($errors->first('main_category_name'))
+      <span class="error_message">{{ $errors->first('main_category_name') }}</span>
+      @endif
+      @if(Auth::user()->role != 4)
       <div class="">
         <p class="m-0">メインカテゴリー</p>
         <input type="text" class="w-100" name="main_category_name" form="mainCategoryRequest">
@@ -44,7 +53,6 @@
       <form action="{{ route('main.category.create') }}" method="post" id="mainCategoryRequest">{{ csrf_field() }}</form>
       </div>
       <!-- サブカテゴリー追加 -->
-      @if(Auth::user()->role != 4)
       @if($errors->has('main_category_id') || $errors->has('sub_category_name'))
       <span class="error_message">
         @if($errors->has('main_category_id'))

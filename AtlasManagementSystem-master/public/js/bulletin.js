@@ -68,4 +68,11 @@ $(function () {
         $(".js-modal").fadeOut();
         return false;
     });
+
+    $(document).ready(function () {
+        $(".main_categories").on("click", function () {
+            const subCategories = $(this).find(".sub_categories");
+            subCategories.toggle();
+        });
+    });
 });
