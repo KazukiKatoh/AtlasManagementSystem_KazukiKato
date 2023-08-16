@@ -15,4 +15,21 @@
     </div>
   </div>
 </div>
+<div class="modal js-modal">
+  <div class="modal__bg js-modal-close"></div>
+  <div class="modal__content">
+      <div class="w-100">
+        <div class="modal-reserve-date w-50 m-auto">
+          <span>予約日：</span><input type="text" name="reserve_date" class="hidden" form="deleteParts" disabled>
+        </div>
+        <div class="modal-reserve-part w-50 m-auto pt-3 pb-3">
+          <span>時間：リモ</span><input type="text" name="reserve_part" class="hidden" form="deleteParts" disabled><span>部</span>
+        </div>
+        <div class="w-50 m-auto edit-modal-btn d-flex">
+          <a class="js-modal-close btn btn-danger d-inline-block" href="">閉じる</a>
+          <input type="submit" class="btn btn-primary d-block" value="キャンセル" form="deleteParts">
+        </div>
+      </div>
+  </div>
+</div>
 @endsection
