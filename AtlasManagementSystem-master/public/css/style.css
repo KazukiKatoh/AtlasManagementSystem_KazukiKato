@@ -123,6 +123,14 @@ li {
     color: #fff;
     font-weight: bold;
 }
+.modal-reserve-date input,
+.modal-reserve-part input {
+    border: none;
+    outline: none;
+}
+.modal-reserve-part input {
+    max-width: 8px;
+}
 .thickline {
     border-bottom: 1px solid #dfe2e6;
     margin-bottom: 10px;
