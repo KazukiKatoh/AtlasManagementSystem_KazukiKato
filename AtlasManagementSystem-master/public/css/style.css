@@ -92,8 +92,8 @@ li {
 .calendar td:nth-child(7) {
     color: #ff0000;
 }
-.past-day {
-    background: #eee;
+.border-primary {
+    width: 100%;
 }
 .day-part-container {
     display: flex;
@@ -208,7 +208,7 @@ li {
 .un_like_btn {
     cursor: pointer;
 }
-.un_like,
+
 .un_like_btn {
     color: #e2254d;
 }
@@ -355,15 +355,15 @@ ul.sub_categories li input:hover {
     justify-content: space-between;
     align-items: center;
 }
-.btn-primary {
+.calendar-btn {
     margin-right: 30px;
-    width: 90px;
+}
+.btn-primary {
     text-align: center;
     color: #fff;
     background-color: #007bff;
 }
 .btn-danger {
-    width: 90px;
     text-align: center;
     color: #fff;
     background-color: #dc3545;
@@ -375,10 +375,16 @@ ul.sub_categories li input:hover {
     border-radius: 10px;
     min-width: 400px;
 }
+.comment_area {
+    margin: 0 10px 40px;
+}
 .comment_area p {
     margin-top: 10px;
     font-size: 12px;
     font-weight: bold;
+}
+.comment_area input[type="submit"] {
+    float: right;
 }
 .comment_area textarea {
     height: 300px;
