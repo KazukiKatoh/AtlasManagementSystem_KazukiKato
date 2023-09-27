@@ -1,22 +1,28 @@
 <?php
-namespace App\Calendars\Admin;
-use Carbon\Carbon;
-use App\Models\Users\User;
 
-class CalendarView{
+namespace App\Calendars\Admin;
+
+use Carbon\Carbon;
+
+class CalendarView
+{
   private $carbon;
 
-  function __construct($date){
+  function __construct($date)
+  {
     $this->carbon = new Carbon($date);
   }
 
-  public function getTitle(){
+  public function getTitle()
+  {
     return $this->carbon->format('Y年n月');
   }
 
-  public function render(){
+  public function render()
+  {
     $html = [];
-    $html[] = '<div class="calendar text-center">';
+    $html[] = '<div class="calendar radius_white text-center">';
+    $html[] = '<div id="wrapper">';
     $html[] = '<table class="table m-auto border">';
     $html[] = '<thead>';
     $html[] = '<tr>';
@@ -33,16 +39,16 @@ class CalendarView{
 
     $weeks = $this->getWeeks();
 
-    foreach($weeks as $week){
-      $html[] = '<tr class="'.$week->getClassName().'">';
+    foreach ($weeks as $week) {
+      $html[] = '<tr class="' . $week->getClassName() . '">';
       $days = $week->getDays();
-      foreach($days as $day){
+      foreach ($days as $day) {
         $startDay = $this->carbon->format("Y-m-01");
         $toDay = $this->carbon->format("Y-m-d");
-        if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
+        if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
           $html[] = '<td class="past-day border">';
-        }else{
-          $html[] = '<td class="border '.$day->getClassName().'">';
+        } else {
+          $html[] = '<td class="border ' . $day->getClassName() . '">';
         }
         $html[] = $day->render();
         $html[] = $day->dayPartCounts($day->everyDay());
@@ -53,18 +59,20 @@ class CalendarView{
     $html[] = '</tbody>';
     $html[] = '</table>';
     $html[] = '</div>';
+    $html[] = '</div>';
 
     return implode("", $html);
   }
 
-  protected function getWeeks(){
+  protected function getWeeks()
+  {
     $weeks = [];
     $firstDay = $this->carbon->copy()->firstOfMonth();
     $lastDay = $this->carbon->copy()->lastOfMonth();
     $week = new CalendarWeek($firstDay->copy());
     $weeks[] = $week;
     $tmpDay = $firstDay->copy()->addDay(7)->startOfWeek();
-    while($tmpDay->lte($lastDay)){
+    while ($tmpDay->lte($lastDay)) {
       $week = new CalendarWeek($tmpDay, count($weeks));
       $weeks[] = $week;
       $tmpDay->addDay(7);

@@ -2,27 +2,29 @@
 @section('content')
 <div class="vh-100 d-flex">
   <div class="w-50 mt-5">
-    <div class="m-3 detail_container">
+    <div class="m-3 detail_container radius_white">
       <div class="p-3">
         <div class="detail_inner_head">
-          <div>
-          </div>
+          <ul>
+            @foreach ($errors->all() as $error)
+            @if (!in_array($error, $errors->get('comment')))
+            <li><span class="error_message" style="font-family: ＭＳ Ｐゴシック, MS PGothic, sans-serif;">{{ $error }}</span></li><br>
+            @endif
+            @endforeach
+          </ul>
           @if (Auth::check() && Auth::user()->id == auth()->user()->id)
-          <div>
-            <span class="edit-modal-open" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</span>
-            <a href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('削除してよろしいですか？')">削除</a>
+          <div class="modal_btn">
+            <span class="edit-modal-open btn btn-primary" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</span>
+            <a href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('削除してよろしいですか？')" class="btn btn-danger">削除</a>
           </div>
           @endif
         </div>
-
+        <div class="subcategory">
+          @foreach($post->subCategories as $subcategory)
+          <span class="category_btn">{{ $subcategory->sub_category }}</span>
+          @endforeach
+        </div>
         <div class="contributor d-flex">
-          @if ($errors->any())
-          <ul>
-            @foreach ($errors->all() as $error)
-            <li><span class="error_message" style="font-family: ＭＳ Ｐゴシック, MS PGothic, sans-serif;">{{ $error }}</span></li>
-            @endforeach
-          </ul>
-          @endif
           <p>
             <span>{{ $post->user->over_name }}</span>
             <span>{{ $post->user->under_name }}</span>
@@ -31,7 +33,7 @@
           <span class="ml-5">{{ $post->created_at }}</span>
         </div>
         <div class="detsail_post_title">{{ $post->post_title }}</div>
-        <div class="mt-3 detsail_post">{{ $post->post }}</div>
+        <div class="detsail_post">{{ $post->post }}</div>
       </div>
       <div class="p-3">
         <div class="comment_container">
@@ -55,7 +57,7 @@
         @if ($errors->has('comment'))
         <ul>
           @foreach ($errors->get('comment') as $error)
-            <li><span class="error_message" style="font-family: ＭＳ Ｐゴシック, MS PGothic, sans-serif;">{{ $error }}</span></li>
+          <li><span class="error_message" style="font-family: ＭＳ Ｐゴシック, MS PGothic, sans-serif;">{{ $error }}</span></li>
           @endforeach
         </ul>
         @endif
@@ -79,7 +81,7 @@
         <div class="modal-inner-body w-50 m-auto pt-3 pb-3">
           <textarea placeholder="投稿内容" name="post_body" class="w-100"></textarea>
         </div>
-        <div class="w-50 m-auto edit-modal-btn d-flex">
+        <div class="w-50 m-auto edit-modal-btn">
           <a class="js-modal-close btn btn-danger d-inline-block" href="">閉じる</a>
           <input type="hidden" class="edit-modal-hidden" name="post_id" value="">
           <input type="submit" class="btn btn-primary d-block" value="編集">
