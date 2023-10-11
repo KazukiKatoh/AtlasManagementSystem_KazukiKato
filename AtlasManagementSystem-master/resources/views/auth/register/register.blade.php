@@ -17,45 +17,45 @@
 <body class="all_content">
   <form action="{{ route('registerPost') }}" method="POST">
     <div class="w-100 vh-100 d-flex" style="align-items:center; justify-content:center;">
-      <div class="w-25 vh-75 border p-3 radius_white">
+      <div class="vh-75 border p-3 radius_white">
         <div class="register_form">
           <div class="d-flex mt-3" style="justify-content:space-between">
-            <div class="" style="width:140px">
+            <div style="margin-right:5px;">
               @error('over_name')
               <span class="text-danger">{{ $message }}</span>
               @enderror
-              <label class="d-block m-0" style="font-size:13px">姓</label>
-              <div class="border-bottom border-primary" style="width:140px;">
-                <input type="text" style="width:140px;" class="border-0 over_name" name="over_name">
+              <label class="d-block m-0">姓</label>
+              <div class="border-bottom border-primary">
+                <input type="text" class="border-0 over_name" name="over_name">
               </div>
             </div>
-            <div class="" style="width:140px">
+            <div style="margin-left:5px;">
               @error('under_name')
               <span class="text-danger">{{ $message }}</span>
               @enderror
-              <label class=" d-block m-0" style="font-size:13px">名</label>
-              <div class="border-bottom border-primary" style="width:140px;">
-                <input type="text" style="width:140px;" class="border-0 under_name" name="under_name">
+              <label class=" d-block m-0">名</label>
+              <div class="border-bottom border-primary">
+                <input type="text" class="border-0 under_name" name="under_name">
               </div>
             </div>
           </div>
-          <div class="d-flex mt-3" style="justify-content:space-between">
-            <div class="" style="width:140px">
+          <div class="d-flex mt-3">
+            <div style="margin-right:5px;">
               @error('over_name_kana')
               <span class="text-danger">{{ $message }}</span>
               @enderror
-              <label class="d-block m-0" style="font-size:13px">セイ</label>
-              <div class="border-bottom border-primary" style="width:140px;">
-                <input type="text" style="width:140px;" class="border-0 over_name_kana" name="over_name_kana">
+              <label class="d-block m-0">セイ</label>
+              <div class="border-bottom border-primary">
+                <input type="text" class="border-0 over_name_kana" name="over_name_kana">
               </div>
             </div>
-            <div class="" style="width:140px">
+            <div style="margin-left:5px;">
               @error('under_name_kana')
               <span class="text-danger">{{ $message }}</span>
               @enderror
-              <label class="d-block m-0" style="font-size:13px">メイ</label>
-              <div class="border-bottom border-primary" style="width:140px;">
-                <input type="text" style="width:140px;" class="border-0 under_name_kana" name="under_name_kana">
+              <label class="d-block m-0">メイ</label>
+              <div class="border-bottom border-primary">
+                <input type="text" class="border-0 under_name_kana" name="under_name_kana">
               </div>
             </div>
           </div>
@@ -63,7 +63,7 @@
             @error('mail_address')
             <span class="text-danger">{{ $message }}</span>
             @enderror
-            <label class="m-0 d-block" style="font-size:13px">メールアドレス</label>
+            <label class="m-0 d-block">メールアドレス</label>
             <div class="border-bottom border-primary">
               <input type="mail" class="w-100 border-0 mail_address" name="mail_address">
             </div>
@@ -71,11 +71,11 @@
         </div>
         <div class="mt-3">
           <input type="radio" name="sex" class="sex" value="1">
-          <label style="font-size:13px">男性</label>
+          <label>男性</label>
           <input type="radio" name="sex" class="sex" value="2">
-          <label style="font-size:13px">女性</label>
+          <label>女性</label>
           <input type="radio" name="sex" class="sex" value="3">
-          <label style="font-size:13px">その他</label>
+          <label>その他</label>
           @error('sex')
           <span class="text-danger">{{ $message }}</span>
           @enderror
@@ -84,7 +84,7 @@
           @error('birth_day')
           <span class="text-danger">{{ $message }}</span>
           @enderror
-          <label class="d-block m-0 aa" style="font-size:13px">生年月日</label>
+          <label class="d-block m-0 aa">生年月日</label>
           <select class="old_year" name="old_year">
             <option value="none">-----</option>
             <option value="1985">1985</option>
@@ -114,7 +114,7 @@
             <option value="2009">2009</option>
             <option value="2010">2010</option>
           </select>
-          <label style="font-size:13px">年</label>
+          <label>年</label>
           <select class="old_month" name="old_month">
             <option value="none">-----</option>
             <option value="01">1</option>
@@ -130,7 +130,7 @@
             <option value="11">11</option>
             <option value="12">12</option>
           </select>
-          <label style="font-size:13px">月</label>
+          <label>月</label>
           <select class="old_day" name="old_day">
             <option value="none">-----</option>
             <option value="01">1</option>
@@ -165,24 +165,24 @@
             <option value="30">30</option>
             <option value="31">31</option>
           </select>
-          <label style="font-size:13px">月</label>
+          <label>月</label>
         </div>
         <div class="mt-3">
-          <label class="d-block m-0" style="font-size:13px">役職</label>
+          <label class="d-block m-0">役職</label>
           <input type="radio" name="role" class="admin_role role" value="1">
-          <label style="font-size:13px">教師(国語)</label>
+          <label>教師(国語)</label>
           <input type="radio" name="role" class="admin_role role" value="2">
-          <label style="font-size:13px">教師(数学)</label>
+          <label>教師(数学)</label>
           <input type="radio" name="role" class="admin_role role" value="3">
-          <label style="font-size:13px">教師(英語)</label>
+          <label>教師(英語)</label>
           <input type="radio" name="role" class="other_role role" value="4">
-          <label style="font-size:13px" class="other_role">生徒</label>
+          <label class="other_role">生徒</label>
           @error('role')
           <span class="text-danger">{{ $message }}</span>
           @enderror
         </div>
         <div class="select_teacher d-none">
-          <label class="d-block m-0" style="font-size:13px">選択科目</label>
+          <label class="d-block m-0">選択科目</label>
           @foreach($subjects as $subject)
           <div class="">
             <input type="checkbox" name="subject[]" value="{{ $subject->id }}">
@@ -194,7 +194,7 @@
           @error('password')
           <span class="text-danger">{{ $message }}</span>
           @enderror
-          <label class="d-block m-0" style="font-size:13px">パスワード</label>
+          <label class="d-block m-0">パスワード</label>
           <div class="border-bottom border-primary">
             <input type="password" class="border-0 w-100 password" name="password">
           </div>
@@ -203,7 +203,7 @@
           @error('password_confirmation')
           <span class="text-danger">{{ $message }}</span>
           @enderror
-          <label class="d-block m-0" style="font-size:13px">確認用パスワード</label>
+          <label class="d-block m-0">確認用パスワード</label>
           <div class="border-bottom border-primary">
             <input type="password" class="border-0 w-100 password_confirmation" name="password_confirmation">
           </div>

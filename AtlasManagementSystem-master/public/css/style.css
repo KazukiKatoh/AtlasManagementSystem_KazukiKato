@@ -30,6 +30,9 @@ li {
 .btn {
     cursor: pointer;
 }
+.text-danger {
+    font-size: 12px;
+}
 /* サイドバー */
 .sidebar {
     width: 20%;
