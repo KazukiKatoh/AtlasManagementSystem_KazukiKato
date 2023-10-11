@@ -48,7 +48,7 @@ li {
 }
 .main-container {
     width: 100%;
-    margin-left: 20%;
+    margin-left: max(20%, 210px);
 }
 .sidebar p {
     position: relative;
