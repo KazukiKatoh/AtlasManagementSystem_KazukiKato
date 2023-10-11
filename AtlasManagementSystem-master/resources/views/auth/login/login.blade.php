@@ -16,7 +16,7 @@
 
 <body class="all_content">
   <form action="{{ route('loginPost') }}" method="POST">
-    <div class="w-100 vh-100 d-flex" style="align-items:center; justify-content:center;">
+    <div class="w-100 vh-100 d-flex login" style="align-items:center; justify-content:center;">
       <img src="image/atlas-black.png" alt="Atlas" width="180px" height="66px">
       <div class="border vh-50 w-25 radius_white" style="background-color: #fff;">
         <div class="w-75 m-auto pt-5">
