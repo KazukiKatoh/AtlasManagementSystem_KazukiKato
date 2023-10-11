@@ -35,8 +35,7 @@ li {
 }
 /* サイドバー */
 .sidebar {
-    width: 20%;
-    max-width: 280px;
+    width: 15%;
     min-width: 210px;
     height: 100vh;
     background-color: #03aad2;
@@ -48,7 +47,7 @@ li {
 }
 .main-container {
     width: 100%;
-    margin-left: max(20%, 210px);
+    margin-left: max(280px, 210px);
 }
 .sidebar p {
     position: relative;
